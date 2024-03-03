@@ -285,11 +285,11 @@ def fix_by_counts(chip, counts, grid_size, removed_probes=None):
     # count values on chip
     unique_values, value_counts = np.unique(chip[~np.isnan(chip)], return_counts=True)
     cur_counts = pd.Series(value_counts, index=unique_values)
-    cur_counts = cur_counts.append(pd.Series(0, index=removed_probes), verify_integrity=True)
+    cur_counts = pd.concat([cur_counts, pd.Series(0, index=removed_probes)], verify_integrity=True)
     diffs = (cur_counts - counts).astype(int)
-    fill = np.concatenate([np.full(-diff, val) for val, diff in diffs.iteritems() if diff < 0])
+    fill = np.concatenate([np.full(-diff, val) for val, diff in diffs.items() if diff < 0])
     # get from unused_cells diffs[i] cells of seq i
-    for i, diff in tqdm(diffs.iteritems(), total=diffs.shape[0]):
+    for i, diff in tqdm(diffs.items(), total=diffs.shape[0]):
         if diff <= 0: continue
         ind = []
         expand = 0
