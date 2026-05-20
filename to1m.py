@@ -276,7 +276,7 @@ def prepare_grid_chip(features_file, blocks_file, grid_size, chip_design, out_fi
     chip_to_csv(chip, translator, out_file[:-3] + 'csv')
     print('[*] Writing tdt')
     seqs = get_sorted_seqs(chip, chip_design)
-    # write_seqs_to_file(out_file, seqs, translator)
+    write_seqs_to_file(out_file, seqs, translator)
 
 
 if __name__ == '__main__':
