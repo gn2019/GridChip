@@ -1,17 +1,28 @@
-
 grid_chip.py — Generate a Balanced Probe Layout for a Microarray Chip
 =
+
 This script builds a complete microarray chip layout from an Agilent feature file. Its main goal is to distribute probe sequences across the chip while preserving the desired number of occurrences of each probe and ensuring that every probe appears within each grid cell.
+
 The workflow begins by reading the input feature file and counting how many times each unique probe appears. These counts are scaled to fit a single cell of the chip while maintaining relative abundances. The script then creates one representative cell containing all probes, with higher-abundance probes replicated proportionally. Probe locations within the cell are randomized to avoid positional bias.
+
 Next, this cell is replicated across all chip regions. The gaps between cells are filled by copying neighboring rows and columns so that the entire physical chip area is populated. Control regions defined in a mask file are then removed from consideration.
+
 Several correction steps follow. The script verifies that every cell contains all required probes and inserts any missing probes if necessary. It also adjusts global probe counts so the final chip matches the original feature-file frequencies identically. Special “filler probes” are used to occupy otherwise unused positions.
+
 Finally, the completed chip is exported both as a human-readable CSV layout and as a reordered TDT file suitable for manufacturing or downstream processing. In short, this script creates a uniformly distributed, count-balanced chip design from a single probe set.
+
 
 to1m.py — Build a Block-Specific 1M Chip from Probe Assignments
 =
+
 This script is a more advanced chip-design generator that allows different regions of the chip to contain different probe sets. Instead of replicating a single cell everywhere, it constructs each block independently based on a user-provided mapping between probes and chip blocks.
+
 The process starts by loading the feature file and a CSV describing which probe sequences belong to each block. For every block on the chip, the script calculates the expected abundance of each assigned probe and generates a customized cell containing only those probes. These cells are then assembled into their corresponding physical locations on the chip.
+
 After assembly, the chip mask is applied to remove control positions. Because masking changes the available space, the script recalculates probe counts within each block and adjusts the contents so that local probe abundances match the intended design. A dedicated count-balancing algorithm identifies probes that are overrepresented and replaces excess copies with probes that are underrepresented.
+
 The script then fills all non-cell regions with designated filler probes and performs a second global balancing pass to ensure that overall probe frequencies across the entire chip match the original feature-file counts. An optional prioritization strategy minimizes disruption by preferentially removing excess probes from cells where they are most abundant.
+
 Finally, the script exports the resulting chip as both CSV and TDT files and performs a quality-control check that reports probes whose observed counts differ significantly from expectations within individual blocks.
+
 In essence, this script creates a highly customized microarray chip where each block can contain a different probe collection while still preserving both local and global probe-count requirements.
