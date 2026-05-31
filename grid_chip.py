@@ -192,9 +192,9 @@ def make_chip(cell, grid_size, chip_design):
     return chip
 
 
-def mask_chip(chip, chip_design):
+def mask_chip(chip, chip_design, mask_value=np.nan):
     mask = pd.read_csv(MASK_FILE[chip_design], header=0, index_col=0)
-    masked = np.where(mask, np.nan, chip)
+    masked = np.where(mask, mask_value, chip)
     return masked
 
 
