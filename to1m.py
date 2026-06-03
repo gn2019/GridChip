@@ -148,7 +148,6 @@ def fix_counts(arr, target_counts, mask=None, randomize=True, prioritize_cells=F
         for val, diff in diffs.items():
             if diff <= 0:
                 continue
-            positions = []
             cell_infos = []
             for (r0, r1), (c0, c1) in cell_slices:
                 sub_arr = arr[r0:r1 + 1, c0:c1 + 1]
@@ -197,7 +196,7 @@ def get_non_cell_positions(grid_size, chip_design):
     for row in ROWS_LOC[grid_size]:
         for col in COLS_LOC[grid_size]:
             non_cell_positions[row[0]:row[1] + 1, col[0]:col[1] + 1] = False
-    mask_chip(non_cell_positions, chip_design, False)
+    non_cell_positions = mask_chip(non_cell_positions, chip_design, False)
     return non_cell_positions
 
 
