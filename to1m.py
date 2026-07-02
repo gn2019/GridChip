@@ -12,19 +12,19 @@ from grid_chip import (fill_cell, get_seq_counts, to_indices,
                        write_seqs_to_file)
 from grid_chip import FILLER_PROBES, MASK_FILE, CHIP_SHAPE, SUPPORTED_CHIP_DESIGNS
 
-SUPPORTED_GRID_SIZES = [21, 10, 8]
+SUPPORTED_GRID_SIZES = [24, 10, 8]
 CELL_SHAPE = {
-    21: (120, 109),
+    24: (120, 109),
     10: (3, 3),  # debug
     8:  (328, 192), # 1: (1824, 534)
 }
 COLS_LOC = {
-    21: [(i, i + CELL_SHAPE[21][1] - 1) for i in (0, 212, 424)],
+    24: [(i, i + CELL_SHAPE[24][1] - 1) for i in (0, 212, 424)],
     10: [(0, 1), (3, 5), (8, 9)],  # debug
     8:  [(i, i + CELL_SHAPE[8][1] - 1) for i in (0, 342)],
 }
 ROWS_LOC = {
-    21: [(i, i + CELL_SHAPE[21][0] - 1) for i in (0, 244, 488, 732, 976, 1220, 1464)] + [(1708, CHIP_SHAPE['1m'][0] - 1)],
+    24: [(i, i + CELL_SHAPE[24][0] - 1) for i in (0, 244, 488, 732, 976, 1220, 1464)] + [(1708, CHIP_SHAPE['1m'][0] - 1)],
     10: [(0, 1), (3, 5), (8, 9)],  # debug
     8:  [(i, i + CELL_SHAPE[8][0] - 1) for i in (0, 499, 998, 1496)],
 }
